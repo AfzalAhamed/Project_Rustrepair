@@ -1,0 +1,184 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
+public class Partsupplier extends javax.swing.JFrame {
+
+   
+    public Partsupplier() {
+        initComponents();
+      
+    }
+        Connection con1;
+        PreparedStatement insert;
+   
+  private void txtsnameActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // TODO add your handling code here:
+    }                                        
+
+    private void txtstelephoneActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        // TODO add your handling code here:
+    }                                             
+
+    private void txtsemailActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // TODO add your handling code here:
+    }                                         
+
+    private void txtsidActionPerformed(java.awt.event.ActionEvent evt) {                                       
+        // TODO add your handling code here:
+    }                                      
+
+    private void table3MouseClicked(java.awt.event.MouseEvent evt) {                                    
+        // TODO add your handling code here:
+        DefaultTableModel Df=(DefaultTableModel)table.getModel();
+        int selectedIndex=table.getSelectedRow();
+        
+        txtsid.setText(Df.getValueAt(selectedIndex, 0).toString());
+        txtsname.setText(Df.getValueAt(selectedIndex, 1).toString());
+        txtstelephone.setText(Df.getValueAt(selectedIndex, 2).toString());
+        txtsemail.setText(Df.getValueAt(selectedIndex, 3).toString());
+    }    
+
+    private void addMouseClicked(java.awt.event.MouseEvent evt) {                                 
+        // TODO add your handling code here:
+            String sid=txtsid.getText();
+            String sname=txtsname.getText();
+            String stelephone=txtstelephone.getText();
+            String semail=txtsemail.getText();
+            if(sid.equals("")){
+            JOptionPane.showMessageDialog(this,"Enter Any Record");
+        }else{
+	try{
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
+            
+           try{
+            con1 = DriverManager.getConnection("");
+            insert= con1.prepareStatement("insert into supplier(supID,supName,supTelephone,supEmail)values(?,?,?,?)");
+            insert.setString(1,sid);
+            insert.setString(2,sname);
+            insert.setString(3,stelephone);
+            insert.setString(4,semail);
+            insert.executeUpdate();
+            }
+            catch(SQLException sqle) {
+                System.out.println("Sql Exception :"+sqle.getMessage());
+            }
+         }
+         catch(ClassNotFoundException e) {
+            System.out.println("Class Not Found Exception :" + e.getMessage());
+         }
+        JOptionPane.showMessageDialog(this,"Record Added Succesfuly");
+       
+            }
+        
+        txtsid.setText("");
+        txtsname.setText("");
+        txtstelephone.setText("");
+        txtsemail.setText("");
+        txtsid.requestFocus();
+    }                                
+
+                              
+
+    private void updateMouseClicked(java.awt.event.MouseEvent evt) {                                    
+        // TODO add your handling code here:
+          DefaultTableModel Df=(DefaultTableModel)table.getModel();
+       int selectedIndex=table.getSelectedRow();
+            String sid=txtsid.getText();
+            String sname=txtsname.getText();
+            String stelephone=txtstelephone.getText();
+            String semail=txtsemail.getText();
+       if(sid.equals("")){
+            JOptionPane.showMessageDialog(this,"Select Any Record");
+        }else{
+       try{
+            
+            
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver"); 
+            
+           
+           try{
+            con1 = DriverManager.getConnection("");
+            insert= con1.prepareStatement("update supplier set supName=?,supTelephone=?,supEmail=? where supID=?");
+            
+            insert.setString(1,sname);
+            insert.setString(2,stelephone);
+            insert.setString(3,semail);
+            insert.setString(4,sid);
+            insert.executeUpdate();
+            }
+            
+            catch(SQLException sqle) {
+                System.out.println("Sql Exception :"+sqle.getMessage());
+            }
+
+         }
+         catch(ClassNotFoundException e) {
+            System.out.println("Class Not Found Exception :" + e.getMessage());
+         }
+       JOptionPane.showMessageDialog(this,"Record Updated Succesfuly");
+      
+       }
+        
+            txtsid.setText("");
+            txtsname.setText("");
+            txtstelephone.setText("");
+            txtsemail.setText("");
+            txtsid.requestFocus();
+    }                                   
+
+                                  
+
+    private void disposeMouseEntered(java.awt.event.MouseEvent evt) {                                     
+        // TODO add your handling code here:
+
+    }                                    
+
+    private void disposeMouseExited(java.awt.event.MouseEvent evt) {                                    
+        // TODO add your handling code here:
+
+    }                                   
+
+                               
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Partsupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Partsupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Partsupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Partsupplier.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Partsupplier().setVisible(true);
+            }
+        });
+    }

@@ -1,0 +1,65 @@
+String status,status1,email,email1,email2;
+        try{
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            try{
+                Connection con1 = DriverManager.getConnection("jdbc:sqlserver://LAPTOP-BU6757J0;databaseName=RustRepair;user=admin;password=admin@123;");
+                Statement stmt = con1.createStatement();
+                ResultSet rs = stmt.executeQuery("select status,custEmail from customer a , repair b where a.custID=b.custID");
+                while (rs.next()) {
+                    status=rs.getString("status");
+                    email=rs.getString("custEmail");
+                        if(status.equals("Done")){
+                            //Sendmail.customer(email);
+                            }
+                } 
+            }catch(SQLException sqle) {
+                System.out.println("Sql Exception :"+sqle.getMessage());
+            }
+            
+        }catch(ClassNotFoundException e) {
+            System.out.println("Class Not Found Exception :" + e.getMessage());
+        }
+        
+        try{
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
+            
+           try{
+                Connection connection2 = DriverManager.getConnection("jdbc:sqlserver://LAPTOP-BU6757J0;databaseName=RustRepair;user=admin;password=admin@123;"); 
+                Statement stmt2 = connection2.createStatement();
+                ResultSet rs2 = stmt2.executeQuery("select status,custEmail from customer a , restoration b where a.custID=b.custID");
+                while (rs2.next()) {
+                    status1=rs2.getString("status");
+                    email1=rs2.getString("custEmail");
+                    if(status1.equals("Done")){
+                        //Sendmail.customer(email1);
+                    }
+                } 
+           }catch(SQLException sqle) {
+                System.out.println("Sql Exception :"+sqle.getMessage());
+            }
+
+         }catch(ClassNotFoundException e) {
+            System.out.println("Class Not Found Exception :" + e.getMessage());
+         }
+         
+        try{
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
+            
+            try {
+                Connection connection1 = DriverManager.getConnection("jdbc:sqlserver://LAPTOP-BU6757J0;databaseName=RustRepair;user=admin;password=admin@123;"); 
+                Statement stmt1 = connection1.createStatement();
+                ResultSet rs1 = stmt1.executeQuery("select partQue,supEmail from part a , supplier b where a.supID=b.supID");
+                while (rs1.next()) {
+                    int que=Integer.parseInt(rs1.getString("partQue"));
+                    email2=rs1.getString("supEmail");
+                    if(que==0){
+                        //Sendmail.supplier(email2);
+                    }
+                } 
+           }catch(SQLException sqle) {
+                System.out.println("Sql Exception :"+sqle.getMessage());
+            }
+
+         }catch(ClassNotFoundException e) {
+            System.out.println("Class Not Found Exception :" + e.getMessage());
+         }
